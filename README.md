@@ -13,7 +13,18 @@ This repository has been designed with the purpose of being able to set up a lig
 
 ## Installation
 
-Install following software
+First we need to give run permissions to the _install.sh_ file and make sure you have the following packages installed on your system: [packages](#manual-installation)
+
+```bash
+chmod +x install.sh
+```
+
+After this we will execute the file and wait for the configuration to be done.
+
+## Manual Installation
+
+**Install following software**
+
 * bspwm
 * sxhkd
 * polybar
@@ -28,9 +39,10 @@ Install following software
 * cowsay
 * ranger
 * alacrity
+* lolcat
 
 ```bash
-bspwm sxhkd polybar rofi i3lock amixer zsh brightnessctl feh picom neofetch cowsay ranger alacrity
+bspwm sxhkd polybar rofi i3lock amixer zsh brightnessctl feh picom neofetch cowsay ranger alacrity lolcat
 
 ```
 <br>
