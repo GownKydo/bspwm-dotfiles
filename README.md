@@ -41,7 +41,7 @@ bspwm sxhkd polybar rofi i3lock amixer zsh brightnessctl feh picom neofetch cows
 
 **neofetch, ranger, cowsay and nvchad**
 
-![terminal](/img/terminal.png)
+![terminal](/screenshots/terminal.png)
 
 
 
