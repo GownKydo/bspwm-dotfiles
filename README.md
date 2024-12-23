@@ -42,20 +42,24 @@ After this we will execute the file and reboot the system.
 * ranger
 * alacrity
 * lolcat
+* htop
 
 ```bash
-bspwm sxhkd polybar rofi i3lock amixer zsh brightnessctl feh picom neofetch cowsay ranger alacrity lolcat
+bspwm sxhkd polybar rofi i3lock amixer zsh brightnessctl feh picom neofetch cowsay ranger alacrity lolcat htop
 
 ```
 <br>
 
 ## Screenshots
 
-### Terminal
+### Desktop
 
-**neofetch, ranger, cowsay with lolcat and nvchad**
+**neofetch, htop, ranger, cowsay with lolcat and nvchad**
 
-![terminal](/screenshots/desktop.png)
+![Desktop](/screenshots/desktop.png)
+
+**Brave, obsidian and bat**
+![Desktop](/screenshots/desktop2.png)
 
 
 ### Polybar
