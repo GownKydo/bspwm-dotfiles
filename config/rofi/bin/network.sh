@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 rofi_command="rofi -theme $HOME/.config/rofi/config/network.rasi"
 
 # Get info
@@ -44,16 +43,15 @@ case $chosen in
 			nmcli radio wifi off
 		else
 			nmcli radio wifi on
-		fi 
+		fi
         ;;
     $bmon)
-        kitty -e bmon
+        alacritty -e bmon
         ;;
     $launch_cli)
-        kitty -e nmtui
+        alacritty -e nmtui
         ;;
     $launch)
         nm-connection-editor
         ;;
 esac
-

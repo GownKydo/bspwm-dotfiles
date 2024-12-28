@@ -1,11 +1,11 @@
-rofi_command="rofi -no-config -theme /home/kydo/.config/polybar/rofi/themes/powermenu.rasi"
+rofi_command="rofi -no-config -theme /home/$USER/.config/rofi/config/powermenu.rasi"
 
 # Options
-shutdown=" Shutdown"
-reboot=" Restart"
-lock=" Lock"
-suspend=" Sleep"
-logout=" Logout"
+shutdown=" Shutdown"
+reboot="󰜉 Restart"
+lock="󰌾 Lock"
+suspend="󰒲  Sleep"
+logout="󰍃  Logout"
 
 # Confirmation
 confirm_exit() {
@@ -14,18 +14,18 @@ confirm_exit() {
 		-i\
 		-no-fixed-num-lines\
 		-p "Are You Sure? : "\
-		-theme $DIR/$theme/confirm.rasi
+		-theme /home/$USER/.config/rofi/config/confirm.rasi
 }
 
 # Message
 msg() {
-	rofi -no-config -theme "$DIR/$theme/message.rasi" -e "Available Options  -  yes / y / no / n"
+	rofi -no-config -theme "/home/$USER/.config/rofi/config/confirm.rasi" -e "Available Options  -  yes / y / no / n"
 }
 
 # Variable passed to rofi
 options="$lock\n$suspend\n$logout\n$reboot\n$shutdown"
-
 chosen="$(echo -e "$options" | $rofi_command -p "Uptime: $uptime" -dmenu -selected-row 0)"
+
 case $chosen in
     $shutdown)
 		ans=$(confirm_exit &)
