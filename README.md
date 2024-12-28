@@ -17,8 +17,9 @@ This repository has been designed with the purpose of being able to set up a lig
 First we need to give run permissions to the _install.sh_ file and execute. 
 
 ```bash
-git clone https://github.com/GownKydo/dotfiles.git
-chmod +x install.sh &&./install.sh
+cd Desktop && git clone https://github.com/GownKydo/dotfiles.git
+cd dotfiles && chmod +x install.sh &&./install.sh
+
 ```
 
 After this we will execute the file and reboot the system.
@@ -40,14 +41,18 @@ After this we will execute the file and reboot the system.
 * neofetch
 * cowsay
 * ranger
-* alacrity
+* alacritty
 * lolcat
 * htop
+* flameshot
 
 ```bash
-bspwm sxhkd polybar rofi i3lock amixer zsh brightnessctl feh picom neofetch cowsay ranger alacrity lolcat htop
+bspwm sxhkd polybar rofi i3lock amixer zsh brightnessctl feh picom neofetch cowsay ranger alacritty lolcat htop flameshot
 
 ```
+
+Install fonst recommended on this site: [hack nerd fonts](https://www.nerdfonts.com/font-downloads). Download and install the fonts 
+
 <br>
 
 ## Screenshots
@@ -91,6 +96,7 @@ The blue color in the polybar indicates that the window is occupied by some appl
 | **keybinds**  | **application** | 
 |-|-|
 | super + d | rofi
+| super + enter | alacritty | 
 | super + shift + b | brave-browser |
 | super + shift + m | telegram desktop |
 | Print | flameshot gui | 
