@@ -1,0 +1,15 @@
+# Capturas de pantalla
+screenshots/
+
+# Imágenes de fondo 
+config/bspwm/wallpapers/
+
+# Archivos de configuración de la terminal o editores
+.idea/           # Archivos de configuración de JetBrains (por ejemplo, IntelliJ, PyCharm)
+.vscode/         # Archivos de configuración de Visual Studio Code
+
+# Archivos de logs o caché
+*.log
+*.swp           # Archivos temporales de Vim
+*.swo           # Archivos temporales de Vim
+
