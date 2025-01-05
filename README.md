@@ -24,6 +24,8 @@ cd dotfiles && chmod +x install.sh &&./install.sh
 
 After this we will execute the file and reboot the system.
 
+> Mover los archivos _.zip_ a la carpeta fonts de tu sistema
+
 ## Manual Installation
 
 **Install following software**
@@ -51,7 +53,7 @@ bspwm sxhkd polybar rofi i3lock amixer zsh brightnessctl feh picom neofetch cows
 
 ```
 
-Install fonst recommended on this site: [hack nerd fonts](https://www.nerdfonts.com/font-downloads). Download and install the fonts 
+Install fonst recommended on this site: [hack nerd fonts](https://www.nerdfonts.com/font-downloads). Download and install the fonts, for change the icons you can do on this site: [nerd fonts cheat sheet](https://www.nerdfonts.com/cheat-sheet)
 
 <br>
 
@@ -95,12 +97,13 @@ The blue color in the polybar indicates that the window is occupied by some appl
 
 | **keybinds**  | **application** | 
 |-|-|
-| super + d | rofi
-| super + enter | alacritty | 
+| super + d | rofi |
+| super + w | close window |
+| super + enter | terminal alacritty | 
 | super + shift + b | brave-browser |
 | super + shift + m | telegram desktop |
 | Print | flameshot gui | 
 | super + shift + o | obsidian |
 | super + shift + v | Visual Studio Code
 
-
+> Modify the file `.config/sxhkd/sxhkdrc` for add o change shortcuts
