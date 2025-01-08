@@ -15,7 +15,7 @@ function get_package_manager() {
 }
 
 function check_dependencies() {
-    echo -e "${yellowColour}[*] Cheking dependencies in the system ...${endColour}\n"
+    echo -e "${yellowColour}[*] Checking dependencies in the system ...${endColour}\n"
 
     local packages=("bspwm" "sxhkd" "polybar" "rofi" "i3lock" "amixer" "zsh" "brightnessctl" \
                     "feh" "picom" "neofetch" "cowsay" "ranger" "alacritty" "lolcat" "htop" \
@@ -24,37 +24,39 @@ function check_dependencies() {
     local successfully=0
     local failed=0
     local missing_dependencies=()
+    local i=0
 
     for package in "${packages[@]}"; do
         if command -v "$package" &>/dev/null; then
-            echo -e "\t${greenColour}[INSTALLED]${endColour} - ${package}"
+            echo -e "\t${greenColour}[INSTALLED]${endColour} - ${package}."
             ((successfully++))
         else
-            echo -e "\t${redColour}[NOT FOUND]${endColour} - $package."
+            echo -e "\t${redColour}[NOT FOUND]${endColour} - ${package}."
+            missing_dependencies[i]="${package}"
             ((failed++))
-            missing_dependencies="$package"
+            ((i++))
         fi
-        sleep 0.5
+        sleep 0.1
     done
 
     echo -e "\n${yellowColour} - $successfully packages found, $failed packages not found ${endColour}"
-    
-    if [[ $failed -gt 0 ]]; then
-        echo -e "${yellowColour}[*] Do you want to install the missing dependencies[y/n]? ${endColour}"
-        read -e option
 
-        if [[ $option == "YES" || $option == "yes" || $option == "Y" || $option == "y" ]]; then
+    if [ "$successfully" -ne 19 ]; then
+        echo -e "${yellowColour}[*] Do you want to install the missing dependencies[y/n]? ${endColour}"
+        read option
+
+        if [[ $option =~ ^[Yy]$ ]]; then
             local pkg_manager=$(get_package_manager)
 
             case "$pkg_manager" in
                 "pacman")
                     for dependencie in "${missing_dependencies[@]}"; do
-                        pacman -S --noconfirm "$dependencie"
+                        pacman -S --noconfirm "${dependencie}"
                     done
                     ;;
                 "apt")
                     for dependencie in "${missing_dependencies[@]}"; do
-                        sudo apt update && sudo apt install -y "$dependencie"
+                        sudo apt install -y "$dependencie"
                     done
                     ;;
                 "dnf")
@@ -71,30 +73,34 @@ function check_dependencies() {
                     echo -e "${redColour}No compatible package manager found. Unable to install dependencies.${endColour}"
                     ;;
             esac
+            echo -e "${yellowColour}\n[*] Dependencies correctly installed! ${endColour}\n\n"
+        else 
+            echo -e "${yellowColour}[*] Skipping installation of missing dependencies.${endColour}\n\n"
         fi
-        echo -e "${yellowColour}\¿n[*] Dependencies correctly installed! ${endColour}"
     fi
 }
 
 function check_and_handle_folders() {
-    local base_dir=$(find $HOME/ -depth -name dotfiles -type d -print -quit)
-    local folders=("bspwm" "picom" "polybar" "neofetch" "rofi" "sxhkd" "neofetch")
-    
-    echo -e "${yellowColour}[*] Creating backup config in ${greenColour}\"$HOME/.config/backup_config\" ${endColour}"
-    mkdir -p /home/$USER/.config/backup_config
+    local base_dir=$(find "$HOME/" -depth -name dotfiles -type d -print -quit)
+    local folders=("bspwm" "picom" "polybar" "neofetch" "rofi" "sxhkd")
 
-    for folder in "${folders[@]}"; do        
+    if [ ! -d "$HOME/.config/backup_config" ]; then
+        echo -e "${yellowColour}[*] Creating backup config in ${greenColour}\"$HOME/.config/backup_config\" ${endColour}"
+        mkdir -p "$HOME/.config/backup_config"
+    fi
+
+    for folder in "${folders[@]}"; do
         if [ -d $HOME/.config/$folder ]; then
-            echo -e "${yellowColour}Moving ${folder} directory to ${greenColour}\"$Home/config/backup_config\" ${endColour}"
-            mv $HOME/.config/$folder $HOME/.config/backup_config
+            echo -e "${yellowColour}Moving ${folder} directory to ${greenColour}\"$HOME/config/backup_config\" ${endColour}"
+            mv "$HOME/.config/$folder" "$HOME/.config/backup_config"
         fi
-        sleep 0.5
-        echo -e "$\n${yellowcolour}Creating direcotry \"${folder}\" ${endColour}"
-        mkdir $HOME/.config/$folder
+        sleep 0.2
 
-        echo -e "\n${yellowColour}Coping config files . . .${endColour}\n"
-        cp -r "$base_dir/config/$folder" "$HOME/.config/$folder"
-        sleep 0.5
+        echo -e "${yellowColour}Coping config files ...${endColour}"
+        cp -r "$base_dir/config/$folder" "$HOME/.config/"
+        echo -e "\n"
+
+        sleep 0.2
     done
 }
 
@@ -102,7 +108,7 @@ function main() {
     # Clear Screen
     clear
 
-    # Call Functions 
+    # Call Functions
     check_dependencies
     check_and_handle_folders
 }
