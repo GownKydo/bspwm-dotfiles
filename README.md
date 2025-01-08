@@ -17,8 +17,10 @@ This repository has been designed with the purpose of being able to set up a lig
 First we need to give run permissions to the _install.sh_ file and execute. 
 
 ```bash
-cd Desktop && git clone https://github.com/GownKydo/dotfiles.git
-cd dotfiles && chmod +x install.sh &&./install.sh
+cd ~/Desktop
+git clone https://github.com/GownKydo/dotfiles.git
+cd dotfiles
+chmod +x install.sh &&./install.sh
 
 ```
 
