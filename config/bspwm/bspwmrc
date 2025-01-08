@@ -43,6 +43,6 @@ picom &
 pgrep -x sxhkd > /dev/null || sxhkd &
 
 # Launch wallpaper
-feh --bg-fill /home/kydo/.config/bspwm/wallpapers/sky.jpg
+feh --bg-fill $HOME/.config/bspwm/wallpapers/sky.jpg
 
 
