@@ -47,7 +47,8 @@ function check_dependencies() {
 
         if [[ $option =~ ^[Yy]$ ]]; then
             local pkg_manager=$(get_package_manager)
-
+            local band=true;
+            
             case "$pkg_manager" in
                 "pacman")
                     for dependencie in "${missing_dependencies[@]}"; do
@@ -70,10 +71,13 @@ function check_dependencies() {
                     done
                     ;;
                 *)
+                    band=false
                     echo -e "${redColour}No compatible package manager found. Unable to install dependencies.${endColour}"
                     ;;
             esac
-            echo -e "${yellowColour}\n[*] Dependencies correctly installed! ${endColour}\n\n"
+            if [[ $band ]]; then
+                echo -e "${yellowColour}\n[*] Dependencies correctly installed! ${endColour}\n\n"
+            fi
         else 
             echo -e "${yellowColour}[*] Skipping installation of missing dependencies.${endColour}\n\n"
         fi
@@ -107,6 +111,12 @@ function check_and_handle_folders() {
 function main() {
     # Clear Screen
     clear
+
+    # Check if the user is root
+    if [ "$(id -u)" -ne 0 ]; then
+        echo -e "${redColour}This script must be run as root. Exiting...${endColour}"
+        exit 1
+    fi
 
     # Call Functions
     check_dependencies

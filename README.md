@@ -24,38 +24,53 @@ chmod +x install.sh &&./install.sh
 
 ```
 
-After this we will execute the file and reboot the system.
+After this we will execute the file and logout of the session.
 
-> Mover los archivos _.zip_ a la carpeta fonts de tu sistema
 
 ## Manual Installation
 
 **Install following software**
 
-* bspwm
-* sxhkd
-* polybar
-* rofi
-* i3lock
-* amixer
-* zsh
-* brightnessctl
-* feh 
-* picom
-* neofetch
-* cowsay
-* ranger
-* alacritty
-* lolcat
-* htop
-* flameshot
+| **Arch**  | **Debian** | 
+|-|-|
+| bspwm | bspwm
+| sxhkd | sxhkd
+| polybar | polybar
+| rofi | rofi
+| i3lock | i3lock
+| pamixer | amixer
+| zsh | zsh 
+| brightnessctl | brightnessctl
+| feh | feh 
+| picom | picom
+| neofetch | neofetch
+| cowsay | cowsay
+| ranger | ranger
+| alacritty | alacritty
+| lolcat | lolcat
+| htop | htop
+| flameshot | flameshot
 
 ```bash
-bspwm sxhkd polybar rofi i3lock amixer zsh brightnessctl feh picom neofetch cowsay ranger alacritty lolcat htop flameshot
+bspwm sxhkd polybar rofi i3lock pamixer zsh brightnessctl feh picom neofetch cowsay ranger alacritty lolcat htop flameshot
 
 ```
+### Install p10k for zsh
 
-Install fonst recommended on this site: [hack nerd fonts](https://www.nerdfonts.com/font-downloads). Download and install the fonts, for change the icons you can do on this site: [nerd fonts cheat sheet](https://www.nerdfonts.com/cheat-sheet)
+To use this theme for zsh, run the following command to perform the manual installation and continue:
+
+```bash
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+```
+Before running this command to change the shell:
+
+```bash
+chsh --shell /usr/bin/zsh username
+```
+
+> Install the "JetBrainsMono Nerd Fonts" from 
+this site: [Hack Nerd Fonts](https://www.nerdfonts.com/font-downloads) (these are used for icons in the polybar).
 
 <br>
 
@@ -83,15 +98,15 @@ The blue color in the polybar indicates that the window is occupied by some appl
 
 ## keybinds
 
-### Keysbinds for volume and Brightness
+### Volume and Brightness
 
-| **keybinds** | Command | **application** | 
-|-|-|-|
-| XF86MonBrightnessUp | brightnessctl set +10% | Brightness up |
-| XF86MonBrightnessDown| brightnessctl set 10%- | Brightness down |
-| XF86AudioRaiseVolume| amixer set Master 10%+ | Raises volume | 
-| XF86AudioLowerVolume | amixer set Master 10%- | Lowers volume |
-| XF86AudioMute | amixer -D pulse set Master 1+ toggle | Mute
+Command | **application** | 
+|-|-|
+| brightnessctl set +10% | Brightness up |
+| brightnessctl set 10%- | Brightness down |
+| amixer set Master 10%+ | Raises volume | 
+| amixer set Master 10%- | Lowers volume |
+| amixer -D pulse set Master 1+ toggle | Mute
 
 
 
@@ -107,5 +122,7 @@ The blue color in the polybar indicates that the window is occupied by some appl
 | Print | flameshot gui | 
 | super + shift + o | obsidian |
 | super + shift + v | Visual Studio Code
+
+<br>
 
 > Modify the file `.config/sxhkd/sxhkdrc` for add o change shortcuts
