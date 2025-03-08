@@ -57,7 +57,7 @@ bspwm sxhkd polybar rofi i3lock pamixer zsh brightnessctl feh picom neofetch cow
 ```
 ### Install p10k for zsh
 
-To use this theme for zsh, run the following command to perform the manual installation and continue:
+To use this theme for [zsh](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#manual), run the following command to perform the manual installation and continue:
 
 ```bash
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
