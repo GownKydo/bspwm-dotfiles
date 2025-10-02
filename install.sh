@@ -18,7 +18,7 @@ function check_dependencies() {
     echo -e "${yellowColour}[*] Checking dependencies in the system ...${endColour}\n"
 
     local packages=("bspwm" "sxhkd" "polybar" "rofi" "i3lock" "amixer" "zsh" "brightnessctl" \
-                    "feh" "picom" "neofetch" "cowsay" "ranger" "alacritty" "lolcat" "htop" \
+                    "feh" "picom" "fastfetch" "cowsay" "ranger" "alacritty" "lolcat" "htop" \
                     "flameshot" "lsd" "bat" "zsh")
 
     local successfully=0
@@ -86,7 +86,7 @@ function check_dependencies() {
 
 function check_and_handle_folders() {
     local base_dir=$(find "$HOME/" -depth -name dotfiles -type d -print -quit)
-    local folders=("bspwm" "picom" "polybar" "neofetch" "rofi" "sxhkd")
+    local folders=("bspwm" "picom" "polybar" "fastfetch" "rofi" "sxhkd")
 
     if [ ! -d "$HOME/.config/backup_config" ]; then
         echo -e "${yellowColour}[*] Creating backup config in ${greenColour}\"$HOME/.config/backup_config\" ${endColour}"
