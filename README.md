@@ -43,7 +43,7 @@ After this we will execute the file and logout of the session.
 | brightnessctl | brightnessctl
 | feh | feh 
 | picom | picom
-| neofetch | neofetch
+| fastfetch | fastfetch
 | cowsay | cowsay
 | ranger | ranger
 | alacritty | alacritty
@@ -52,7 +52,7 @@ After this we will execute the file and logout of the session.
 | flameshot | flameshot
 
 ```bash
-bspwm sxhkd polybar rofi i3lock pamixer zsh brightnessctl feh picom neofetch cowsay ranger alacritty lolcat htop flameshot
+bspwm sxhkd polybar rofi i3lock pamixer zsh brightnessctl feh picom fastfetch cowsay ranger alacritty lolcat htop flameshot
 
 ```
 ### Install p10k for zsh
@@ -78,7 +78,7 @@ this site: [Hack Nerd Fonts](https://www.nerdfonts.com/font-downloads) (these ar
 
 ### Desktop
 
-**neofetch, htop, ranger, cowsay with lolcat and nvchad**
+**neofetch(now is fastfetch), htop, ranger, cowsay with lolcat and nvchad**
 
 ![Desktop](/screenshots/desktop.png)
 
@@ -100,7 +100,7 @@ The blue color in the polybar indicates that the window is occupied by some appl
 
 ### Volume and Brightness
 
-Command | **application** | 
+**Command** | **application** | 
 |-|-|
 | brightnessctl set +10% | Brightness up |
 | brightnessctl set 10%- | Brightness down |
