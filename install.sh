@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Variables for colors
+greenColour="\e[0;32m\033[1m"
+redColour="\e[0;31m\033[1m"
+yellowColour="\e[0;33m\033[1m"
+endColour="\033[0m\e[0m"
+
 function get_package_manager() {
     if command -v pacman &>/dev/null; then
         echo "pacman"
@@ -19,12 +25,11 @@ function check_dependencies() {
 
     local packages=("bspwm" "sxhkd" "polybar" "rofi" "i3lock" "amixer" "zsh" "brightnessctl" \
                     "feh" "picom" "fastfetch" "cowsay" "ranger" "alacritty" "lolcat" "htop" \
-                    "flameshot" "lsd" "bat" "zsh")
+                    "flameshot" "lsd" "bat")
 
     local successfully=0
     local failed=0
     local missing_dependencies=()
-    local i=0
 
     for package in "${packages[@]}"; do
         if command -v "$package" &>/dev/null; then
@@ -32,9 +37,8 @@ function check_dependencies() {
             ((successfully++))
         else
             echo -e "\t${redColour}[NOT FOUND]${endColour} - ${package}."
-            missing_dependencies[i]="${package}"
+            missing_dependencies+=("$package")
             ((failed++))
-            ((i++))
         fi
         sleep 0.1
     done
@@ -46,8 +50,14 @@ function check_dependencies() {
         read option
 
         if [[ $option =~ ^[Yy]$ ]]; then
+            # Check if the user is root
+            if [ "$(id -u)" -ne 0 ]; then
+                echo -e "${redColour}This script must be run as root. Exiting...${endColour}"
+                exit 1
+            fi
+            
             local pkg_manager=$(get_package_manager)
-            local band=true;
+            local band=true
             
             case "$pkg_manager" in
                 "pacman")
@@ -78,14 +88,17 @@ function check_dependencies() {
             if [[ $band ]]; then
                 echo -e "${yellowColour}\n[*] Dependencies correctly installed! ${endColour}\n\n"
             fi
-        else 
-            echo -e "${yellowColour}[*] Skipping installation of missing dependencies.${endColour}\n\n"
         fi
     fi
 }
 
 function check_and_handle_folders() {
-    local base_dir=$(find "$HOME/" -depth -name dotfiles -type d -print -quit)
+    local base_dir=$(find "$HOME/" -depth -name bspwm-dotfiles -type d -print -quit)
+    if [ -z "$base_dir" ]; then
+        echo -e "${redColour}[!] Dotfiles directory not found. Exiting...${endColour}"
+        exit 1
+    fi
+
     local folders=("bspwm" "picom" "polybar" "fastfetch" "rofi" "sxhkd")
 
     if [ ! -d "$HOME/.config/backup_config" ]; then
@@ -94,17 +107,26 @@ function check_and_handle_folders() {
     fi
 
     for folder in "${folders[@]}"; do
-        if [ -d $HOME/.config/$folder ]; then
-            echo -e "${yellowColour}Moving ${folder} directory to ${greenColour}\"$HOME/config/backup_config\" ${endColour}"
+        if [ -d "$HOME/.config/$folder" ]; then
+            echo -e "${yellowColour}Moving ${folder} directory to ${greenColour}\"$HOME/.config/backup_config\" ${endColour}"
             mv "$HOME/.config/$folder" "$HOME/.config/backup_config"
         fi
         sleep 0.2
 
-        echo -e "${yellowColour}Coping config files ...${endColour}"
-        cp -r "$base_dir/config/$folder" "$HOME/.config/"
-        echo -e "\n"
+        echo -e "${yellowColour}Copying config files ...${endColour}"
 
-        sleep 0.2
+        if [ -n "$base_dir" ] && [ -d "$base_dir/config/$folder" ]; then
+            cp -r "$base_dir/config/$folder/" "$HOME/.config/"
+        else
+            echo -e "${redColour}Source directory for $folder not found.${endColour}"
+            echo -e "${yellowColour}Generating directory and copying files...${endColour}"
+
+            mkdir -p "$HOME/.config/$folder"
+            if [ -d "./config/$folder" ]; then
+                cp -r "./config/$folder/." "$HOME/.config/$folder/"
+            fi
+        fi
+        echo -e "\n"
     done
 }
 
@@ -112,22 +134,10 @@ function main() {
     # Clear Screen
     clear
 
-    # Check if the user is root
-    if [ "$(id -u)" -ne 0 ]; then
-        echo -e "${redColour}This script must be run as root. Exiting...${endColour}"
-        exit 1
-    fi
-
     # Call Functions
     check_dependencies
     check_and_handle_folders
 }
-
-# Variables for colors
-greenColour="\e[0;32m\033[1m"
-redColour="\e[0;31m\033[1m"
-yellowColour="\e[0;33m\033[1m"
-endColour="\033[0m\e[0m"
 
 # Call the main function
 main
